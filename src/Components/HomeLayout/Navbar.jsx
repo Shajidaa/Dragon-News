@@ -1,13 +1,13 @@
-import { NavLink } from "react-router";
+import { Link } from "react-router";
 import user from "../../assets/user.png";
 const Navbar = () => {
   return (
     <div className="w-11/12 mx-auto flex justify-between items-center">
       <div></div>
       <div className="*:ml-2 text-lg text-base-300">
-        <NavLink>Home</NavLink>
-        <NavLink>About</NavLink>
-        <NavLink>Career</NavLink>
+        <Link>Home</Link>
+        <Link>About</Link>
+        <Link>Career</Link>
       </div>
       <div>
         <button className="flex gap-2 ">
