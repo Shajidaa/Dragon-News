@@ -9,7 +9,7 @@ const Navbar = () => {
   };
   return (
     <div className="w-11/12 mx-auto flex justify-between items-center">
-      <div> {import.meta.env.VITE_SOME_KEY}</div>
+      <div></div>
 
       <div className="*:ml-2 text-lg text-base-300">
         <Link to={"/"}>Home</Link>

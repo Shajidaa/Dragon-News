@@ -1,4 +1,3 @@
-import React from "react";
 import LoginWith from "./LoginWith";
 import FindUs from "./FindUs";
 import QJon from "./QJon";
