@@ -9,7 +9,7 @@ const Category = () => {
       <h1 className="text-xl font-semibold">
         All Categories({categories.length})
       </h1>
-      <div className=" grid grid-cols-1">
+      <div className=" grid md:grid-cols-1 grid-cols-3">
         {categories.map((category) => (
           <NavLink
             className="btn bg-base-100 mt-5 border-0 hover:bg-base-200 hover:text-white font-semibold text-base-200"

@@ -25,11 +25,18 @@ const CategoryNews = () => {
       <h1 className="font-semibold text-xl text-primary ">
         News Found ({categoryNews.length})
       </h1>
-      <div className="grid gird-cols-1 gap-5 mt-5">
-        {categoryNews.map((news) => (
-          <NewsCard news={news} key={news.id}></NewsCard>
-        ))}
-      </div>
+      {categoryNews.length > 0 ? (
+        <div className="grid gird-cols-1 gap-5 mt-5">
+          {categoryNews.map((news) => (
+            <NewsCard news={news} key={news.id}></NewsCard>
+          ))}
+        </div>
+      ) : (
+        <div className="grid gird-cols-1 items-center gap-5 mt-5">
+          {" "}
+          No News add here{" "}
+        </div>
+      )}
     </div>
   );
 };
