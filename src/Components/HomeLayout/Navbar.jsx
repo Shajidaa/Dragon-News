@@ -9,12 +9,14 @@ const Navbar = () => {
   };
   return (
     <div className="w-11/12 mx-auto flex justify-between items-center">
-      <div></div>
+      <div> {import.meta.env.VITE_SOME_KEY}</div>
+
       <div className="*:ml-2 text-lg text-base-300">
         <Link to={"/"}>Home</Link>
         <Link>About</Link>
         <Link>Career</Link>
       </div>
+
       <div>
         <button className="flex gap-2 ">
           {" "}

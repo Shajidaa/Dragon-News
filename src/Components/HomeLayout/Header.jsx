@@ -2,7 +2,7 @@ import { format } from "date-fns";
 import logo from "../../assets/logo.png";
 
 const Header = () => {
-  const date = format(new Date(), "EEEE");
+  const day = format(new Date(), "EEEE");
   const month = format(new Date(), ", MMMM MM yyyy");
   return (
     <div className="flex flex-col justify-center items-center">
@@ -11,7 +11,7 @@ const Header = () => {
         Journalism Without Fear or Favour
       </p>
       <p className="text-base-200 font-medium mb-2 text-xl">
-        <span className="text-primary">{date}</span>
+        <span className="text-primary">{day}</span>
         {month}
       </p>
     </div>

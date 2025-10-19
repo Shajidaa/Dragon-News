@@ -1,11 +1,12 @@
 import { use, useState } from "react";
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
 import { AuthContext } from "../../../Provider/AuthProvider";
 
 const Register = () => {
   const { createUser, setUser, user, updateUser } = use(AuthContext);
   const [error, setError] = useState("");
 
+  const navigate = useNavigate();
   const handleRegister = async (e) => {
     e.preventDefault();
 
@@ -27,6 +28,7 @@ const Register = () => {
       updateUser({ displayName: name, photoURL: photo })
         .then(() => {
           setUser({ ...user, displayName: name, photoURL: photo });
+          navigate("/");
         })
         .catch((error) => console.log(error.message));
     } catch (err) {

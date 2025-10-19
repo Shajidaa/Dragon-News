@@ -54,6 +54,8 @@ const Login = () => {
             {/* password */}
             <label className="label">Password</label>
             <input
+              type="password"
+              name="password"
               className="input"
               placeholder="Enter Your Password"
               required
