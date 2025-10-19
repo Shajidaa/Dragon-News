@@ -11,14 +11,18 @@ const Navbar = () => {
     <div className="w-11/12 mx-auto flex justify-between items-center">
       <div></div>
       <div className="*:ml-2 text-lg text-base-300">
-        <Link>Home</Link>
+        <Link to={"/"}>Home</Link>
         <Link>About</Link>
         <Link>Career</Link>
       </div>
       <div>
         <button className="flex gap-2 ">
           {" "}
-          <img src={userImage} alt="" />{" "}
+          <img
+            className="w-12 rounded-full"
+            src={`${user ? user.photoURL : userImage}`}
+            alt=""
+          />{" "}
           {user ? (
             <p
               onClick={handleLogout}

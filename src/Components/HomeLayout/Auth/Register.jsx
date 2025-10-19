@@ -1,21 +1,39 @@
-import { use } from "react";
+import { use, useState } from "react";
 import { Link } from "react-router";
 import { AuthContext } from "../../../Provider/AuthProvider";
 
 const Register = () => {
-  const { createUser, setUser, user } = use(AuthContext);
-  const handleRegister = (e) => {
+  const { createUser, setUser, user, updateUser } = use(AuthContext);
+  const [error, setError] = useState("");
+
+  const handleRegister = async (e) => {
     e.preventDefault();
 
     const form = e.currentTarget;
-    // const name = form.name.value;
+    const name = form.name.value;
+    const photo = form.photo.value;
+    // const photo = form.photo.files[0];
+    console.log({ name });
 
     const email = form.email.value;
     const password = form.password.value;
-    createUser(email, password)
-      .then((res) => setUser(res.user))
-      .catch((error) => console.log(error.message));
+    // createUser(email, password)
+    //   .then((res) => setUser(res.user))
+    //   .catch((error) => console.log(error.message));
+    try {
+      const res = await createUser(email, password);
+      const user = res.user;
+
+      updateUser({ displayName: name, photoURL: photo })
+        .then(() => {
+          setUser({ ...user, displayName: name, photoURL: photo });
+        })
+        .catch((error) => console.log(error.message));
+    } catch (err) {
+      setError(err.message);
+    }
   };
+  console.log(user);
 
   return (
     <div
@@ -34,14 +52,16 @@ const Register = () => {
               name="name"
               className="input"
               placeholder="Enter Your Name"
+              required
             />
             {/* Photo URL */}
             <label className="label">Photo URL</label>
             <input
-              type="email"
-              name="Photo"
+              type="text"
+              name="photo"
               className="input"
               placeholder="Enter Your Photo"
+              required
             />
             {/* email */}
             <label className="label">Email</label>
@@ -50,6 +70,7 @@ const Register = () => {
               name="email"
               className="input"
               placeholder="Enter Your Email"
+              required
             />
             {/* password */}
             <label className="label">Password</label>
@@ -58,6 +79,7 @@ const Register = () => {
               name="password"
               className="input"
               placeholder="Enter Your Password"
+              required
             />
             <div>
               <a className="link link-hover">Forgot password?</a>
@@ -78,6 +100,7 @@ const Register = () => {
           </fieldset>
         </form>
         {user && <p>{user.email}</p>}
+        {error && <p>{error}</p>}
       </div>
     </div>
   );

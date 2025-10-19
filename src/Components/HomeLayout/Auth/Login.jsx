@@ -1,17 +1,37 @@
-import React, { use } from "react";
-import { Link } from "react-router";
+import React, { use, useState } from "react";
+import { Link, useLocation, useNavigate } from "react-router";
 import { AuthContext } from "../../../Provider/AuthProvider";
 
 const Login = () => {
   const { logIn, setUser } = use(AuthContext);
-  const handleLogin = (e) => {
+  const [error, setError] = useState("");
+  const location = useLocation();
+  const navigate = useNavigate();
+
+  const handleLogin = async (e) => {
     e.preventDefault();
 
     const form = e.currentTarget;
     const email = form.email.value;
     const password = form.password.value;
-    logIn(email, password).then((res) => setUser(res.user));
+
+    // logIn(email, password)
+    //   .then(
+    //     (res) => setUser(res.user),
+    //     navigate(`${location.state ? location.state : "/"}`)
+    //   )
+    //   .catch((error) => {
+    //     setError(error.message);
+    //   });
+    try {
+      const res = await logIn(email, password);
+      setUser(res.user);
+      navigate(location.state ? location.state : "/");
+    } catch (err) {
+      setError(err.message);
+    }
   };
+
   return (
     <div
       className="card bg-base-100 mx-auto
@@ -29,14 +49,14 @@ const Login = () => {
               name="email"
               className="input"
               placeholder="Enter Your Email"
+              required
             />
             {/* password */}
             <label className="label">Password</label>
             <input
-              type="password"
-              name="password"
               className="input"
               placeholder="Enter Your Password"
+              required
             />
             <div>
               <a className="link link-hover">Forgot password?</a>
@@ -46,7 +66,7 @@ const Login = () => {
             </button>
 
             <p className="text-lg font-medium">
-              Dont’t Have An Account ?{" "}
+              Don’t Have An Account ?{" "}
               <Link
                 className="text-blue-400 hover:text-blue-900"
                 to={"/auth/register"}
@@ -55,6 +75,7 @@ const Login = () => {
               </Link>
             </p>
           </fieldset>
+          {error && <p className="text-red-500 font-medium">{error}</p>}
         </form>
       </div>
     </div>
