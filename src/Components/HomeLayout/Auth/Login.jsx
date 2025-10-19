@@ -3,8 +3,9 @@ import { Link, useLocation, useNavigate } from "react-router";
 import { AuthContext } from "../../../Provider/AuthProvider";
 
 const Login = () => {
-  const { logIn, setUser } = use(AuthContext);
+  const { logIn, setUser, resetPassword } = use(AuthContext);
   const [error, setError] = useState("");
+  const [email, setEmail] = useState("");
   const location = useLocation();
   const navigate = useNavigate();
 
@@ -13,6 +14,7 @@ const Login = () => {
 
     const form = e.currentTarget;
     const email = form.email.value;
+
     const password = form.password.value;
 
     // logIn(email, password)
@@ -31,6 +33,34 @@ const Login = () => {
       setError(err.message);
     }
   };
+  // const handleResetPassword = () => {
+  //   const emailInput = document.querySelector('input[name="email"]');
+  //   const email = emailInput?.value;
+
+  //   if (!email) {
+  //     alert("Please enter your email first!");
+  //     return;
+  //   }
+
+  //   resetPassword(email)
+  //     .then(() => {
+  //       alert("Password reset email sent! Check your inbox.");
+  //     })
+  //     .catch((error) => {
+  //       alert(error.message);
+  //     });
+  // };
+  const handleResetPassword = async () => {
+    if (!email) {
+      return alert("please enter your email first!");
+    }
+    try {
+      await resetPassword(email);
+      alert("Password reset email sent!");
+    } catch (error) {
+      alert(error.message);
+    }
+  };
 
   return (
     <div
@@ -47,6 +77,8 @@ const Login = () => {
             <input
               type="email"
               name="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
               className="input"
               placeholder="Enter Your Email"
               required
@@ -60,9 +92,13 @@ const Login = () => {
               placeholder="Enter Your Password"
               required
             />
-            <div>
-              <a className="link link-hover">Forgot password?</a>
-            </div>
+            <a
+              onClick={handleResetPassword}
+              className="link link-hover cursor-pointer"
+            >
+              Forgot password?
+            </a>
+
             <button type="submit" className="btn btn-neutral mt-4">
               Login
             </button>

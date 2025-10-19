@@ -10,6 +10,7 @@ import {
   GoogleAuthProvider,
   signInWithPopup,
   GithubAuthProvider,
+  sendPasswordResetEmail,
 } from "firebase/auth";
 
 export const AuthContext = createContext();
@@ -57,7 +58,9 @@ const AuthProvider = ({ children }) => {
       })
       .catch((error) => console.log(error.message));
   };
-
+  const resetPassword = (email) => {
+    return sendPasswordResetEmail(auth, email);
+  };
   const authValue = {
     user,
     loading,
@@ -68,6 +71,7 @@ const AuthProvider = ({ children }) => {
     updateUser,
     signInGoogle,
     signInGitHub,
+    resetPassword,
   };
   return (
     <AuthContext.Provider value={authValue}>{children}</AuthContext.Provider>
