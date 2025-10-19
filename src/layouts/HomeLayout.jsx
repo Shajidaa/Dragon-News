@@ -9,6 +9,7 @@ import FindUs from "../Components/HomeLayout/RightSideContainer/FindUs";
 import QJon from "../Components/HomeLayout/RightSideContainer/QJon";
 
 import bgImg from "../assets/bg.png";
+import RightContainer from "../Components/HomeLayout/RightSideContainer/RightContainer";
 const HomeLayout = () => {
   return (
     <>
@@ -26,9 +27,7 @@ const HomeLayout = () => {
           <Outlet></Outlet>
         </main>
         <aside className="col-span-3">
-          <LoginWith></LoginWith>
-          <FindUs></FindUs>
-          <QJon></QJon>
+          <RightContainer></RightContainer>
           <div className="flex justify-center items-center my-5">
             <img src={bgImg} alt="" />
           </div>
