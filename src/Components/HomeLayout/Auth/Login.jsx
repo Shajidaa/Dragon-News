@@ -1,13 +1,14 @@
-import React, { use, useState } from "react";
+import React, { use, useRef, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router";
 import { AuthContext } from "../../../Provider/AuthProvider";
 
 const Login = () => {
-  const { logIn, setUser, resetPassword } = use(AuthContext);
+  const { logIn, setUser, resetPassword, verificationEmail } = use(AuthContext);
   const [error, setError] = useState("");
-  const [email, setEmail] = useState("");
+  // const [email, setEmail] = useState("");
   const location = useLocation();
   const navigate = useNavigate();
+  const emailRef = useRef();
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -27,7 +28,10 @@ const Login = () => {
     //   });
     try {
       const res = await logIn(email, password);
-      setUser(res.user);
+
+      await setUser(res.user);
+      await verificationEmail();
+
       navigate(location.state ? location.state : "/");
     } catch (err) {
       setError(err.message);
@@ -51,9 +55,16 @@ const Login = () => {
   //     });
   // };
   const handleResetPassword = async () => {
+    const email = emailRef.current.value;
     if (!email) {
       return alert("please enter your email first!");
     }
+    // try {
+    //   await resetPassword(email);
+    //   alert("Password reset email sent!");
+    // } catch (error) {
+    //   alert(error.message);
+    // }
     try {
       await resetPassword(email);
       alert("Password reset email sent!");
@@ -77,8 +88,9 @@ const Login = () => {
             <input
               type="email"
               name="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              // value={email}
+              // onChange={(e) => setEmail(e.target.value)}
+              ref={emailRef}
               className="input"
               placeholder="Enter Your Email"
               required

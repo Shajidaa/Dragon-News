@@ -7,12 +7,13 @@ import Login from "../Components/HomeLayout/Auth/Login";
 import Register from "../Components/HomeLayout/Auth/Register";
 import NewsDetails from "../Pages/NewsDetails";
 import PrivateProvider from "../provider/PrivateProvider";
+import Loading from "../Components/HomeLayout/Loading";
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <HomeLayout></HomeLayout>,
-    hydrateFallbackElement: <p>loading..</p>,
+    hydrateFallbackElement: <Loading></Loading>,
     children: [
       {
         path: "",
